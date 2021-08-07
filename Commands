@@ -19,3 +19,21 @@ Bulk Create member users and guests accounts.  You create the comma-separated va
           -SendInvitationMessage $true
        }
        
+You can run the New-AzureADUser Azure PowerShell command to add cloud-based users.
+
+    # Create a password object
+    $PasswordProfile = New-Object -TypeName Microsoft.Open.AzureAD.Model.PasswordProfile
+
+    # Assign the password
+    $PasswordProfile.Password = "<Password>"
+
+    # Create the new user
+    New-AzureADUser -AccountEnabled $True -DisplayName "Abby Brown" -PasswordProfile $PasswordProfile -MailNickName "AbbyB" -UserPrincipalName "AbbyB@contoso.com"
+    
+    Azure CLI
+    
+    az ad user create --display-name "Abby Brown" \
+                  --password "<password>" \
+                  --user-principal-name "AbbyB@contoso.com" \
+                  --force-change-password-next-login true \
+                  --mail-nickname "AbbyB"
