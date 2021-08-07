@@ -37,3 +37,67 @@ You can run the New-AzureADUser Azure PowerShell command to add cloud-based user
                   --user-principal-name "AbbyB@contoso.com" \
                   --force-change-password-next-login true \
                   --mail-nickname "AbbyB"
+
+You can also use Azure PowerShell to add a group using the New-AzureADGroup command as shown below.
+
+    New-AzureADGroup -Description "Marketing" -DisplayName "Marketing" -MailEnabled $false -SecurityEnabled $true -MailNickName "Marketing"
+    
+To see Role Defintions 
+    
+    Get-AzRoleDefinition Owner  ""For the Owner role, that means all actions, indicated by an asterisk (*); no denied actions; and all scopes, indicated by a forward slash (/)""
+    
+Role Definitons 
+
+    Name 	Description
+ Id 	Unique identifier for the role, assigned by Azure.
+ IsCustom 	True if a custom role, False if a built-in role.
+ Description 	A readable description of the role.
+ Actions [] 	Allowed permissions, * indicates all.
+ NotActions [] 	Denied permissions.
+ DataActions [] 	Specific allowed permissions as applied to data, for example Microsoft.Storage/storageAccounts/blobServices/containers/blobs/read
+ NotDataActions [] 	Specific denied permissions as applied to data.
+ AssignableScopes [] 	Scopes where this role applies. / indicates global, but can reach into a hierarchical tree.
+
+    You can tailor the Actions and NotActions properties to grant and deny the exact permissions you need. These properties are always in the format: {Company}.{ProviderName}/{resourceType}/{action}.
+
+As an example, here are the actions for the three roles we looked at previously.
+Actions and NotActions
+Built-in Role 	Actions 	NotActions
+Owner (allow all actions) 	* 	-
+Contributor (allow all actions except writing or deleting role assignments) 	* 	Microsoft.Authorization/*/Delete, Microsoft.Authorization/*/Write, Microsoft.Authorization/*/elevateAccess/Action
+Reader (allow all read actions) 	*/read 	-
+
+{
+  "Name": "Contributor",
+  "Id": "b24988ac-6180-42a0-ab88-20f7382dd24c",
+  "IsCustom": false,
+  "Description": "Lets you manage everything except access to resources.",
+  "Actions": [
+    "*"
+  ],
+  "NotActions": [
+    "Microsoft.Authorization/*/Delete",
+    "Microsoft.Authorization/*/Write",
+    "Microsoft.Authorization/elevateAccess/Action"
+  ],
+  "DataActions": [],
+  "NotDataActions": [],
+  "AssignableScopes": [
+    "/"
+  ]
+}
+
+    Microsoft.Storage/storageAccounts/blobServices/containers/blobs/delete 	Delete blob data
+    Microsoft.Compute/virtualMachines/login/action 	Log in to a VM as a regular user
+    Microsoft.EventHub/namespaces/messages/send/action 	Send messages on an event hub
+    Microsoft.Storage/storageAccounts/fileServices/fileshares/files/read 	Return a file/folder or list of files/folders
+    Microsoft.Storage/storageAccounts/queueServices/queues/messages/read 	Read a message from a queue
+    
+Assignable Scopes
+
+    To 	                        Use Scope
+Restrict to a subscription. 	"/subscriptions/{sub-id}"
+Restrict to a specific resource group on a specific subscription. 	"/subscriptions/{sub-id}/resourceGroups/{rg-name}"
+Restrict to a specific resource. 	"/subscriptions/{sub-id}/resourceGroups/{rg-name}/{resource-name}"
+Make a role available for assignment in two subscriptions. 	"/subscriptions/{sub-id}", "/subscriptions/{sub-id}"
+
