@@ -101,3 +101,15 @@ Restrict to a specific resource group on a specific subscription. 	"/subscriptio
 Restrict to a specific resource. 	"/subscriptions/{sub-id}/resourceGroups/{rg-name}/{resource-name}"
 Make a role available for assignment in two subscriptions. 	"/subscriptions/{sub-id}", "/subscriptions/{sub-id}"
 
+Accept MarketPlace Terms
+
+    Set-AzMarketplaceTerms
+   -Publisher <String>
+   -Product <String>
+   -Name <String>
+   [-Accept]
+   [-Terms <PSAgreementTerms>]
+   [-DefaultProfile <IAzureContextContainer>]
+   [-WhatIf]
+   [-Confirm]
+   [<CommonParameters>]
