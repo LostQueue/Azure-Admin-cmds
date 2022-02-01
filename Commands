@@ -113,3 +113,10 @@ Accept MarketPlace Terms
    [-WhatIf]
    [-Confirm]
    [<CommonParameters>]
+
+Connect Powershell And Login
+
+Connect-AzAccount
+    Get-AzSubscription
+         set-azcontext -SubscriptionId "InsertId"
+              Get-AzOperationalInsightsworkspace
